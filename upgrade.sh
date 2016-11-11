@@ -34,18 +34,18 @@ fi
 # upgrade pip3
 check_cmd "pip3"
 if [[ $? = 1 ]]; then
-	update_pip "pip3"
+  update_pip "pip3"
 fi
 
 # upgrade pip
 check_cmd "pip"
 if [[ $? = 1 ]]; then
-	update_pip "pip"
+  update_pip "pip"
 fi
 
 # upgrade ruby gems
 check_cmd "gem"
 if [[ $? == 1 ]]; then
-	gem update --system
-	gem update --force
+  gem update --system
+  gem update --force
 fi
