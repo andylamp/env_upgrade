@@ -20,32 +20,37 @@ check_cmd() {
 
 # update pip based on version
 update_pip() {
-  pip install --upgrade;
+  $1 install --upgrade pip;
   $1 freeze --local | grep -v '^\-e' | \
-  cut -d = -f 1 | xargs -n1 $1 install -U;
+  cut -d = -f 1 | xargs -n1 $1 install -U >/dev/null;
 }
 
 # upgrade the brew packages
 check_cmd "brew"
 if [[ $? = 1 ]]; then
-  brew upgrade;
+  echo "Upgrading Homebrew"
+  brew upgrade >/dev/null;
 fi
 
 # upgrade pip3
 check_cmd "pip3"
 if [[ $? = 1 ]]; then
+  echo "Upgrading pip3"
   update_pip "pip3"
 fi
 
 # upgrade pip
 check_cmd "pip"
 if [[ $? = 1 ]]; then
+  echo "Upgrading pip"
   update_pip "pip"
 fi
 
 # upgrade ruby gems
 check_cmd "gem"
 if [[ $? == 1 ]]; then
-  gem update --system
-  gem update --force
+  echo "Upgrading gem --system"
+  gem update --system >/dev/null;
+  echo "Upgrading gem modules"
+  gem update --force >/dev/null;
 fi
