@@ -54,3 +54,11 @@ if [[ $? == 1 ]]; then
   echo "Upgrading gem modules"
   gem update --force >/dev/null;
 fi
+
+# upgrade rust using rustup
+check_cmd "rustup"
+if [[ $? == 1 ]]; then
+    echo "Upgrading rust"
+    rustup update >/dev/null;
+fi
+
